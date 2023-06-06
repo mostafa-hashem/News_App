@@ -1,0 +1,13 @@
+{
+  "settings": "Settings",
+  "language" : "Language",
+  "english" : "English",
+  "arabic" : "Arabic",
+  "theme" : "Theme",
+  "lightMood" : "Light",
+  "darkMood" : "Dark",
+  "systemMood" : "System Mode",
+  "on" : "On",
+  "off" : "Off",
+  "appName": "News"
+}
