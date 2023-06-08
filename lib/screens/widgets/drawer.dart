@@ -27,7 +27,8 @@ class DrawerScreen extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            provider.categoryModel = null;
+            provider.onCategorySelectedNull();
+            Navigator.pop(context);
           },
           child: Row(children: [
             SizedBox(

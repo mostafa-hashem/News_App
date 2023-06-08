@@ -15,8 +15,9 @@ class NewsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<MyAppProvider>(context);
     return InkWell(
-      onTap: (){
-        Navigator.pushNamed(context, FullNewScreen.routeName, arguments: article);
+      onTap: () {
+        Navigator.pushNamed(context, FullNewScreen.routeName,
+            arguments: article);
       },
       child: Container(
         margin: const EdgeInsets.all(8),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/screens/categories.dart';
-import 'package:news_app/shared/styles/app_colors.dart';
+import 'package:news_app/screens/widgets/search_widget.dart';
 import 'package:provider/provider.dart';
 import '../provider/app_provider.dart';
 import '../screens/widgets/drawer.dart';
@@ -11,6 +11,7 @@ import 'package:news_app/screens/news_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "HomeScreen";
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,36 +47,7 @@ class HomeScreen extends StatelessWidget {
               actions: provider.categoryModel != null
                   ? [
                       provider.searchClicked
-                          ? Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 36.w, vertical: 18.h),
-                              child: Container(
-                                width: 0.8.sw,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(35)
-                                ),
-                                child: Center(
-                                  child: TextField(
-                                    textInputAction: TextInputAction.search,
-                                    decoration:  InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: 'Search',
-                                      hintStyle: const TextStyle(color: Colors.black54),
-                                      suffixIcon: const Icon(Icons.search),
-                                      suffixIconColor: AppCloros.greenColor,
-                                      prefixIcon: InkWell(
-                                          onTap: (){
-                                            provider.onSearchClickedTrue();
-                                          },
-                                          child: const Icon(Icons.cancel_outlined)),
-                                      prefixIconColor: AppCloros.greenColor,
-                                    ),
-                                    onSubmitted: (value) {},
-                                  ),
-                                ),
-                              ),
-                            )
+                          ? const SearchWidget()
                           : Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
@@ -115,5 +87,12 @@ class HomeScreen extends StatelessWidget {
             body: provider.categoryModel == null
                 ? CategoriesScreen(provider.onCategorySelected)
                 : NewsScreen(provider.categoryModel!)));
+  }
+
+  void onSearchSubmitted(String query, MyAppProvider provider) {
+    provider.onSearchClickedTrue();
+    if (provider.categoryModel != null) {
+      provider.getNewsData(provider.categoryModel!.id, query);
+    }
   }
 }
