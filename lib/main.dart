@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/provider/app_provider.dart';
-import 'package:news_app/screens/category_tab.dart';
 import 'package:news_app/screens/settings_tab.dart';
 import 'package:news_app/shared/styles/my_theme.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +33,6 @@ class MyApp extends StatelessWidget {
           routes: {
             HomeScreen.routeName: (c) => const HomeScreen(),
             SettingsTab.routeName: (c) => SettingsTab(),
-            CategoryTab.routeName: (c) => const CategoryTab(),
           },
           theme: MyThemeData.lightTheme,
           darkTheme: MyThemeData.darkTheme,

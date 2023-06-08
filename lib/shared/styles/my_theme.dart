@@ -14,7 +14,7 @@ class MyThemeData {
     appBarTheme: AppBarTheme(
       iconTheme: const IconThemeData(
         color: Colors.white,
-        size: 30,
+        size: 28,
       ),
       color: AppCloros.greenColor,
       centerTitle: true,
@@ -29,7 +29,7 @@ class MyThemeData {
     textTheme: TextTheme(
       bodySmall: AppTexts.NovaSquare12BlackLight(),
       bodyMedium: AppTexts.NovaSquare18WhiteLight(),
-      bodyLarge: AppTexts.NovaSquare32WhiteLight(),
+      bodyLarge: AppTexts.NovaSquare24WhiteLight(),
     ),
   );
   static ThemeData darkTheme = ThemeData(
@@ -42,7 +42,7 @@ class MyThemeData {
     appBarTheme: AppBarTheme(
       iconTheme: const IconThemeData(
         color: Colors.white,
-        size: 30,
+        size: 28,
       ),
       color: AppCloros.greenColor,
       centerTitle: true,
@@ -57,7 +57,7 @@ class MyThemeData {
     textTheme: TextTheme(
       bodySmall: AppTexts.NovaSquare12WhiteDark(),
       bodyMedium: AppTexts.NovaSquare18WhiteDark(),
-      bodyLarge: AppTexts.NovaSquare22WhiteDark(),
+      bodyLarge: AppTexts.NovaSquare24WhiteDark(),
     ),
   );
 }

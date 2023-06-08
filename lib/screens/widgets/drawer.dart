@@ -20,8 +20,8 @@ class DrawerScreen extends StatelessWidget {
             SizedBox(height: 0.04.sh,),
             InkWell(
               onTap: (){
-                Navigator.pushNamed(context, CategoryTab.routeName);
-              },
+                // Navigator.pushNamed(context, CategoryTab.routeName);
+              } ,
               child: Row(
                   children: [
                     SizedBox(

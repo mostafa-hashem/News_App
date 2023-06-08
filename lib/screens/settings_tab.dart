@@ -19,6 +19,9 @@ class SettingsTab extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             AppLocalizations.of(context)!.settings,
+            style: provider.language == "en"
+                ? Theme.of(context).textTheme.bodyLarge
+                : GoogleFonts.cairo(),
           ),
         ),
         body: Padding(
@@ -41,8 +44,7 @@ class SettingsTab extends StatelessWidget {
                           ? AppTexts.NovaSquare12WhiteDark()
                               .copyWith(fontSize: 16.sp)
                           : GoogleFonts.cairo()),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               InkWell(
                 onTap: () {
                   showLanguageSheet(context);
@@ -67,16 +69,15 @@ class SettingsTab extends StatelessWidget {
                       provider.language == 'en'
                           ? Text(
                               AppLocalizations.of(context)!.english,
-                              style:  GoogleFonts.novaSquare(),
+                              style:
+                                  GoogleFonts.novaSquare(color: Colors.black),
                             )
                           : Text(
                               AppLocalizations.of(context)!.arabic,
                               style: GoogleFonts.cairo(color: Colors.black),
                             ),
-                      const Icon(
-                        Icons.arrow_drop_down,
-                        size: 25,
-                      )
+                      const Icon(Icons.arrow_drop_down,
+                          size: 25, color: Colors.black)
                     ],
                   ),
                 ),
@@ -117,21 +118,21 @@ class SettingsTab extends StatelessWidget {
                       provider.themeMode == ThemeMode.light
                           ? Text(AppLocalizations.of(context)!.lightMood,
                               style: provider.language == "en"
-                                  ? GoogleFonts.novaSquare()
-                                  : GoogleFonts.cairo())
+                                  ? GoogleFonts.novaSquare(color: Colors.black)
+                                  : GoogleFonts.cairo(color: Colors.black))
                           : provider.themeMode == ThemeMode.system
                               ? Text(AppLocalizations.of(context)!.systemMood,
                                   style: provider.language == "en"
-                                      ? GoogleFonts.novaSquare()
-                                      : GoogleFonts.cairo())
+                                      ? GoogleFonts.novaSquare(
+                                          color: Colors.black)
+                                      : GoogleFonts.cairo(color: Colors.black))
                               : Text(AppLocalizations.of(context)!.darkMood,
                                   style: provider.language == "en"
-                                      ? GoogleFonts.novaSquare()
-                                      : GoogleFonts.cairo()),
-                      const Icon(
-                        Icons.arrow_drop_down,
-                        size: 25,
-                      )
+                                      ? GoogleFonts.novaSquare(
+                                          color: Colors.black)
+                                      : GoogleFonts.cairo(color: Colors.black)),
+                      const Icon(Icons.arrow_drop_down,
+                          size: 25, color: Colors.black)
                     ],
                   ),
                 ),
