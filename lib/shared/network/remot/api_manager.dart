@@ -7,7 +7,7 @@ import '../../../models/SoursesResponse.dart';
 import '../../components/constans.dart';
 
 class ApiManager {
-  static Future<SoursesResponse> getSources() async {
+  static Future<SoursesResponse> getSources(String id) async {
     Uri URL = Uri.https(
         BASE_URL, END_POINT, {"apiKey": ApiKey});
     Response response = await http.get(URL);

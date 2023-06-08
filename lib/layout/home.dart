@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/screens/tabs_screen.dart';
-import 'package:news_app/shared/components/constans.dart';
-import 'package:news_app/shared/network/remot/api_manager.dart';
+import 'package:news_app/screens/categories.dart';
+import 'package:news_app/shared/styles/app_colors.dart';
 import 'package:provider/provider.dart';
 import '../provider/app_provider.dart';
 import '../screens/widgets/drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:news_app/screens/news_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
   static const String routeName = "HomeScreen";
 
   @override
@@ -35,110 +33,87 @@ class HomeScreen extends StatelessWidget {
                   bottomRight: Radius.circular(70.r),
                 ),
               ),
-              title: Text(
-                AppLocalizations.of(context)!.appName,
-                style: provider.language == "en"
-                    ? Theme.of(context).textTheme.bodyLarge
-                    : GoogleFonts.cairo(),
-              ),
+              title: provider.searchClicked == false
+                  ? Text(
+                      provider.categoryModel == null
+                          ? AppLocalizations.of(context)!.appName
+                          : provider.categoryModel!.name,
+                      style: provider.language == "en"
+                          ? Theme.of(context).textTheme.bodyLarge
+                          : GoogleFonts.cairo(),
+                    )
+                  : const Text(""),
+              actions: provider.categoryModel != null
+                  ? [
+                      provider.searchClicked
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 36.w, vertical: 18.h),
+                              child: Container(
+                                width: 0.8.sw,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(35)
+                                ),
+                                child: Center(
+                                  child: TextField(
+                                    textInputAction: TextInputAction.search,
+                                    decoration:  InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Search',
+                                      hintStyle: const TextStyle(color: Colors.black54),
+                                      suffixIcon: const Icon(Icons.search),
+                                      suffixIconColor: AppCloros.greenColor,
+                                      prefixIcon: InkWell(
+                                          onTap: (){
+                                            provider.onSearchClickedTrue();
+                                          },
+                                          child: const Icon(Icons.cancel_outlined)),
+                                      prefixIconColor: AppCloros.greenColor,
+                                    ),
+                                    onSubmitted: (value) {},
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: InkWell(
+                                onTap: () {
+                                  provider.onSearchClickedFalse();
+                                },
+                                child: provider.searchClicked == false
+                                    ? const Icon(Icons.search_rounded)
+                                    : null,
+                              ),
+                            ),
+                    ]
+                  : [],
               leading: Padding(
                 padding: provider.language == "en"
                     ? EdgeInsets.only(left: 0.03.sw)
                     : EdgeInsets.only(right: 0.03.sw),
                 child: Builder(
                   builder: (BuildContext context) {
-                    return IconButton(
-                      icon: const Icon(
-                        Icons.menu,
-                        size: 30,
-                      ),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                    );
+                    return provider.searchClicked == false
+                        ? InkWell(
+                            onTap: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                            child: const Icon(
+                              Icons.menu,
+                              size: 30,
+                            ),
+                          )
+                        : const Text("");
                   },
                 ),
               ),
             ),
             drawer: const Drawer(child: DrawerScreen()),
-            body: FutureBuilder(
-                future: ApiManager.getSources(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (snapshot.hasError) {
-                    return const Column(
-                      children: [Text("Something went wrong")],
-                    );
-                  }
-                  if (snapshot.data?.status != STATUS) {
-                    return const Column(
-                      children: [Text("Error!")],
-                    );
-                  }
-                  var sources = snapshot.data?.sources ?? [];
-                  return TabsScreen(sources);
-                })));
-    // Column(
-    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //   children: [
-    //     Text(
-    //       "Pick your category of interest",
-    //       style: Theme.of(context).textTheme.bodyMedium,
-    //     ),
-    //     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-    //       Category(
-    //         color: 0xffC91C22,
-    //         image: "assets/images/ball.png",
-    //         text: 'Sports',
-    //         side: 'left',
-    //       ),
-    //       SizedBox(
-    //         width: 0.1.sw,
-    //       ),
-    //       Category(
-    //         color: 0xff003E90,
-    //         image: "assets/images/Politics.png",
-    //         text: 'Politics',
-    //         side: 'right',
-    //       )
-    //     ]),
-    //     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-    //       Category(
-    //         color: 0xffED1E79,
-    //         image: "assets/images/health.png",
-    //         text: 'Health',
-    //         side: 'left',
-    //       ),
-    //       SizedBox(
-    //         width: 0.1.sw,
-    //       ),
-    //       Category(
-    //         color: 0xffCF7E48,
-    //         image: "assets/images/bussines.png",
-    //         text: 'Business',
-    //         side: 'right',
-    //       )
-    //     ]),
-    //     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-    //       Category(
-    //         color: 0xff4882CF,
-    //         image: "assets/images/environment.png",
-    //         text: 'Environment',
-    //         side: 'left',
-    //       ),
-    //       SizedBox(
-    //         width: 0.1.sw,
-    //       ),
-    //       Category(
-    //         color: 0xffF2D352,
-    //         image: "assets/images/science.png",
-    //         text: 'Science',
-    //         side: 'right',
-    //       )
-    //     ])
-    //   ],
-    // )),
+            body: provider.categoryModel == null
+                ? CategoriesScreen(provider.onCategorySelected)
+                : NewsScreen(provider.categoryModel!)));
   }
 }

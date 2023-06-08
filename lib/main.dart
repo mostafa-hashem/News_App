@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_app/models/NewsResponse.dart';
 import 'package:news_app/provider/app_provider.dart';
+import 'package:news_app/screens/full_new_screen.dart';
 import 'package:news_app/screens/settings_tab.dart';
 import 'package:news_app/shared/styles/my_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import 'layout/home.dart';
-
 
 void main() async {
   runApp(ChangeNotifierProvider(
@@ -31,8 +31,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: HomeScreen.routeName,
           routes: {
-            HomeScreen.routeName: (c) => const HomeScreen(),
+            HomeScreen.routeName: (c) => HomeScreen(),
             SettingsTab.routeName: (c) => SettingsTab(),
+            FullNewScreen.routeName: (c) => FullNewScreen(),
           },
           theme: MyThemeData.lightTheme,
           darkTheme: MyThemeData.darkTheme,

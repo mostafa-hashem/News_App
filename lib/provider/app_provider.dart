@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/models/ctegory_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyAppProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
   String language = 'en';
   int selectedIndex = 0;
-
+  CategoryModel? categoryModel = null;
+  bool searchClicked = false;
 
   void changeLanguage(String newLanguage) async {
     if (language == newLanguage) {
@@ -38,6 +40,25 @@ class MyAppProvider extends ChangeNotifier {
       return;
     }
     selectedIndex = value;
+    notifyListeners();
+  }
+
+
+  void onCategorySelected(category) {
+    if (categoryModel == category) {
+      return;
+    }
+    categoryModel = category;
+    notifyListeners();
+  }
+
+  void onSearchClickedFalse() {
+    searchClicked = true;
+    notifyListeners();
+  }
+
+  void onSearchClickedTrue() {
+    searchClicked = false;
     notifyListeners();
   }
 }

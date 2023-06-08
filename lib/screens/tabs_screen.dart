@@ -19,17 +19,20 @@ class TabsScreen extends StatelessWidget {
     return Column(children: [
       DefaultTabController(
         length: sources.length,
-        child: TabBar(
-          onTap: (value) {
-            provider.selectedItem(value);
-          },
-          indicatorColor: Colors.transparent,
-          isScrollable: true,
-          tabs: sources.map((source) {
-            return Tab(
-                child: SourceItem(
-                    source, sources.indexOf(source) == provider.selectedIndex));
-          }).toList(),
+        child: Padding(
+          padding: EdgeInsets.only(top:16,left: provider.language == "en" ? 2 : 0, right: provider.language == "en" ? 0 : 0),
+          child: TabBar(
+            onTap: (value) {
+              provider.selectedItem(value);
+            },
+            indicatorColor: Colors.transparent,
+            isScrollable: true,
+            tabs: sources.map((source) {
+              return Tab(
+                  child: SourceItem(
+                      source, sources.indexOf(source) == provider.selectedIndex));
+            }).toList(),
+          ),
         ),
       ),
       FutureBuilder(
@@ -45,8 +48,8 @@ class TabsScreen extends StatelessWidget {
               );
             }
             if (snapshot.data?.status != STATUS) {
-              return const Column(
-                children: [Text("Error!")],
+              return Column(
+                children: [Text(snapshot.data?.message??"")],
               );
             }
             var newsData = snapshot.data?.articles ?? [];
