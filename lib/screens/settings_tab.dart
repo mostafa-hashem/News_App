@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/screens/widgets/language_bootom_sheet.dart';
+import 'package:news_app/screens/login_screen.dart';
 import 'package:news_app/screens/widgets/theme_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import '../provider/app_provider.dart';
-import '../shared/styles/app_colors.dart';
-import '../shared/styles/text_style.dart';
 
 class SettingsTab extends StatelessWidget {
   static const String routeName = "SettingsTab";
@@ -25,160 +23,145 @@ class SettingsTab extends StatelessWidget {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.all(25.h),
+          padding: const EdgeInsets.all(25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: provider.language == "ar"
-                    ? MediaQuery.of(context).size.height * 0.01
-                    : MediaQuery.of(context).size.height * 0.03,
+                height: 0.01.sh,
               ),
-              Text(AppLocalizations.of(context)!.language,
-                  style: provider.themeMode == ThemeMode.light
-                      ? provider.language == "en"
-                          ? AppTexts.NovaSquare12BlackLight()
-                              .copyWith(fontSize: 16.sp)
-                          : GoogleFonts.cairo()
-                      : provider.language == "en"
-                          ? AppTexts.NovaSquare12WhiteDark()
-                              .copyWith(fontSize: 16.sp)
-                          : GoogleFonts.cairo()),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              InkWell(
-                onTap: () {
-                  showLanguageSheet(context);
-                },
-                child: Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.01),
-                  padding: provider.language == "ar"
-                      ? EdgeInsets.all(
-                          MediaQuery.of(context).size.height * 0.02)
-                      : EdgeInsets.all(
-                          MediaQuery.of(context).size.height * 0.03),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: AppCloros.greenColor,
-                    ),
+              Row(
+                children: [
+                  const Icon(Icons.dark_mode_outlined, size: 40),
+                  SizedBox(
+                    width: 0.03.sw,
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      provider.language == 'en'
-                          ? Text(
-                              AppLocalizations.of(context)!.english,
-                              style:
-                                  GoogleFonts.novaSquare(color: Colors.black),
-                            )
-                          : Text(
-                              AppLocalizations.of(context)!.arabic,
-                              style: GoogleFonts.cairo(color: Colors.black),
-                            ),
-                      const Icon(Icons.arrow_drop_down,
-                          size: 25, color: Colors.black)
-                    ],
-                  ),
-                ),
+                  provider.themeMode == ThemeMode.light
+                      ? GestureDetector(
+                          onTap: () {
+                            showThemeSheet(context);
+                          },
+                          child: const Icon(
+                            Icons.toggle_off_outlined,
+                            size: 45,
+                          ))
+                      : GestureDetector(
+                          onTap: () {
+                            showThemeSheet(context);
+                          },
+                          child: const Icon(
+                            Icons.toggle_on_outlined,
+                            size: 45,
+                          ))
+                ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Text(AppLocalizations.of(context)!.theme,
-                  style: provider.themeMode == ThemeMode.light
-                      ? provider.language == "en"
-                          ? AppTexts.NovaSquare12BlackLight()
-                              .copyWith(fontSize: 16.sp)
-                          : GoogleFonts.cairo()
-                      : provider.language == "en"
-                          ? AppTexts.NovaSquare12WhiteDark()
-                              .copyWith(fontSize: 16.sp)
-                          : GoogleFonts.cairo()),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              InkWell(
-                onTap: () {
-                  showThemeSheet(context);
-                },
-                child: Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.01),
-                  padding: provider.language == "ar"
-                      ? EdgeInsets.all(
-                          MediaQuery.of(context).size.height * 0.02)
-                      : EdgeInsets.all(
-                          MediaQuery.of(context).size.height * 0.03),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: AppCloros.greenColor,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      provider.themeMode == ThemeMode.light
-                          ? Text(AppLocalizations.of(context)!.lightMood,
-                              style: provider.language == "en"
-                                  ? GoogleFonts.novaSquare(color: Colors.black)
-                                  : GoogleFonts.cairo(color: Colors.black))
-                          : provider.themeMode == ThemeMode.system
-                              ? Text(AppLocalizations.of(context)!.systemMood,
-                                  style: provider.language == "en"
-                                      ? GoogleFonts.novaSquare(
-                                          color: Colors.black)
-                                      : GoogleFonts.cairo(color: Colors.black))
-                              : Text(AppLocalizations.of(context)!.darkMood,
-                                  style: provider.language == "en"
-                                      ? GoogleFonts.novaSquare(
-                                          color: Colors.black)
-                                      : GoogleFonts.cairo(color: Colors.black)),
-                      const Icon(Icons.arrow_drop_down,
-                          size: 25, color: Colors.black)
-                    ],
-                  ),
-                ),
+              SizedBox(
+                height: 0.04.sh,
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.account_circle_sharp,
+                    size: 140,
+                  ),
+                ],
+              ),
+              SizedBox(height: 0.05.sh),
+              RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                    text: "User Name: ",
+                    style: provider.themeMode == ThemeMode.light
+                        ? GoogleFonts.novaSquare(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)
+                        : GoogleFonts.novaSquare(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                TextSpan(
+                    text: provider.myUser?.name,
+                    style: provider.themeMode == ThemeMode.light
+                        ? GoogleFonts.novaSquare(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)
+                        : GoogleFonts.novaSquare(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold))
+              ])),
+              SizedBox(height: 0.03.sh),
+              RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                    text: "Email: ",
+                    style: provider.themeMode == ThemeMode.light
+                        ? GoogleFonts.novaSquare(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)
+                        : GoogleFonts.novaSquare(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                TextSpan(
+                    text: provider.myUser?.email,
+                    style: provider.themeMode == ThemeMode.light
+                        ? GoogleFonts.novaSquare(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold)
+                        : GoogleFonts.novaSquare(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold))
+              ])),
+              SizedBox(height: 0.1.sh),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      provider.logout();
+                      Navigator.pushReplacementNamed(
+                          context, LoginScreen.routName);
+                    },
+                    child: Container(
+                        width: 0.4.sw,
+                        decoration:
+                            const BoxDecoration(color: Color(0xff2C64C6)),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Center(
+                              child: Text(
+                            "Log Out",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                        )),
+                  ),
+                ],
+              ),
+              SizedBox(height: 0.2.sh),
               Center(
                 child: Text.rich(TextSpan(children: [
-                  provider.language == "en"
-                      ? TextSpan(
-                          text: "powered by ",
-                          style: GoogleFonts.novaSquare(
-                              color: provider.themeMode == ThemeMode.light
-                                  ? Colors.black45
-                                  : Colors.white70,
-                              fontSize: 12.sp))
-                      : TextSpan(
-                          text: "مشغل بواسطة ",
-                          style: GoogleFonts.cairo(
-                              color: provider.themeMode == ThemeMode.light
-                                  ? Colors.black45
-                                  : Colors.white54,
-                              fontSize: 12.sp)),
-                  provider.language == "en"
-                      ? TextSpan(
-                          text: "MOSTAFA HASHEM",
-                          style: GoogleFonts.novaSquare(fontSize: 15.sp))
-                      : TextSpan(
-                          text: "مصطفى هاشم",
-                          style: GoogleFonts.cairo(fontSize: 15.sp))
+                  TextSpan(
+                      text: "powered by ",
+                      style: GoogleFonts.novaSquare(
+                          color: provider.themeMode == ThemeMode.light
+                              ? Colors.black45
+                              : Colors.white70,
+                          fontSize: 12.sp)),
+                  TextSpan(
+                      text: "MOSTAFA HASHEM",
+                      style: GoogleFonts.novaSquare(fontSize: 15.sp))
                 ])),
               )
             ],
           ),
         ));
-  }
-
-  void showLanguageSheet(context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return LanguageBottomSheet();
-      },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.r),
-      ),
-    );
   }
 
   void showThemeSheet(context) {

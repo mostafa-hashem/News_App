@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/firebase_options.dart';
 import 'package:news_app/provider/app_provider.dart';
+import 'package:news_app/screens/creat_account.dart';
 import 'package:news_app/screens/full_new_screen.dart';
+import 'package:news_app/screens/login_screen.dart';
 import 'package:news_app/screens/settings_tab.dart';
 import 'package:news_app/shared/styles/my_theme.dart';
 import 'package:provider/provider.dart';
@@ -34,8 +36,10 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: HomeScreen.routeName,
+          initialRoute: LoginScreen.routName,
           routes: {
+            LoginScreen.routName: (c) => LoginScreen(),
+            CreatAccount.routName: (c) => CreatAccount(),
             HomeScreen.routeName: (c) => HomeScreen(),
             SettingsTab.routeName: (c) => SettingsTab(),
             FullNewScreen.routeName: (c) => FullNewScreen(),
