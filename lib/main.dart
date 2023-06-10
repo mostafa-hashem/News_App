@@ -1,6 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/models/NewsResponse.dart';
+import 'package:news_app/firebase_options.dart';
 import 'package:news_app/provider/app_provider.dart';
 import 'package:news_app/screens/full_new_screen.dart';
 import 'package:news_app/screens/settings_tab.dart';
@@ -11,6 +12,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'layout/home.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(ChangeNotifierProvider(
       create: (BuildContext context) => MyAppProvider(), child: MyApp()));
 }
