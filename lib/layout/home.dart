@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   static const String routeName = "HomeScreen";
   TextEditingController searchController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<MyAppProvider>(context);

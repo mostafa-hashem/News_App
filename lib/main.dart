@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getPreferences();
     provider = Provider.of<MyAppProvider>(context);
+    getPreferences();
     return ScreenUtilInit(
       designSize: const Size(412, 870),
       minTextAdapt: true,
@@ -36,7 +36,9 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: LoginScreen.routName,
+          initialRoute: provider.firebaseUser != null
+              ? HomeScreen.routeName
+              : LoginScreen.routName,
           routes: {
             LoginScreen.routName: (c) => LoginScreen(),
             CreatAccount.routName: (c) => CreatAccount(),
@@ -57,8 +59,6 @@ class MyApp extends StatelessWidget {
 
   void getPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? language = prefs.getString('language');
-    provider.changeLanguage(language!);
     if (prefs.getString('theme') == 'dark') {
       provider.changeTheme(ThemeMode.dark);
     } else if (prefs.getString('theme') == 'system') {

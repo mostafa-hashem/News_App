@@ -1,12 +1,15 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/layout/home.dart';
 import 'package:news_app/screens/creat_account.dart';
+import 'package:news_app/screens/widgets/animation_enum.dart';
 import 'package:news_app/shared/network/firebase/firebase_functions.dart';
 import 'package:news_app/shared/styles/app_colors.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 import '../provider/app_provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,6 +25,38 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+
+  Artboard? riveArtboard;
+  late RiveAnimationController controllerIdle;
+  late RiveAnimationController controllerHandsUp;
+  late RiveAnimationController controllerHandsDown;
+  late RiveAnimationController controllerSuccess;
+  late RiveAnimationController controllerFail;
+  late RiveAnimationController controllerLookDownRight;
+  late RiveAnimationController controllerLookDownLeft;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controllerIdle = SimpleAnimation(AnimationEnum.idle.name);
+    controllerHandsUp = SimpleAnimation(AnimationEnum.Hands_up.name);
+    controllerHandsDown = SimpleAnimation(AnimationEnum.hands_down.name);
+    controllerSuccess = SimpleAnimation(AnimationEnum.success.name);
+    controllerFail = SimpleAnimation(AnimationEnum.fail.name);
+    controllerLookDownRight =
+        SimpleAnimation(AnimationEnum.Look_down_right.name);
+    controllerLookDownLeft = SimpleAnimation(AnimationEnum.Look_down_left.name);
+
+    rootBundle.load('assets/animation/login_animation.riv').then((data) async {
+      final file = RiveFile.import(data);
+      final artBoard = file.mainArtboard;
+      artBoard.addController(controllerIdle);
+      setState(() {
+        riveArtboard = artBoard;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 0.07.sh,
+                    height: 0.06.sh,
                   ),
                   Text('News App',
                       style: GoogleFonts.novaSquare(
@@ -183,11 +218,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: const Color(0xff2C64C6)),
                         child: const Padding(
                           padding: EdgeInsets.all(8.0),
-                          child: Center(child: Text("Log in")),
+                          child: Center(
+                              child: Text(
+                            "Log in",
+                            style: TextStyle(color: Colors.white),
+                          )),
                         )),
                   ),
                   SizedBox(
-                    height: 0.03.sh,
+                    height: 0.02.sh,
                   ),
                   MaterialButton(
                     minWidth: 1.w,
@@ -202,13 +241,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         )),
                   ),
                   SizedBox(
-                    height: 0.2.sh,
+                    height: 0.1.sh,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("Don't have an account?",
-                          style: GoogleFonts.novaCut(fontSize: 15)),
+                          style: GoogleFonts.novaCut(
+                              fontSize: 15, color: Colors.white)),
                       SizedBox(
                         width: 0.01.sw,
                       ),
@@ -218,7 +258,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text("SIGNUP",
                               style: GoogleFonts.actor(
-                                  fontSize: 20, fontWeight: FontWeight.bold)))
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)))
                     ],
                   ),
                 ],

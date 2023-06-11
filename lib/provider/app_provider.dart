@@ -78,7 +78,7 @@ class MyAppProvider extends ChangeNotifier {
   }
 
   void obscureTextCheckLogin() {
-    obscureTextLogin != obscureTextLogin;
+    obscureTextLogin = !obscureTextLogin;
     notifyListeners();
   }
 

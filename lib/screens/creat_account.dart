@@ -39,15 +39,21 @@ class _CreatAccountState extends State<CreatAccount> {
             child: Form(
               key: formKey,
               child: Column(children: [
-                SizedBox(height: 0.07.sh),
+                SizedBox(height: 0.06.sh),
                 Text('News App',
                     style: GoogleFonts.novaSquare(
                       color: Colors.white,
                       fontSize: 50.sp,
                     )),
                 SizedBox(height: 0.03.sh),
-                const Text("Just one step you can see what's"),
-                const Text("happened in the world"),
+                const Text(
+                  "Just one step you can see what's",
+                  style: TextStyle(color: Colors.white),
+                ),
+                const Text(
+                  "happened in the world",
+                  style: TextStyle(color: Colors.white),
+                ),
                 SizedBox(height: 0.07.sh),
                 TextFormField(
                   validator: (email) {
@@ -58,9 +64,7 @@ class _CreatAccountState extends State<CreatAccount> {
                             r"^[a-zA-Z\d]([._](?![._])|[a-zA-Z\d]){1,18}[a-zA-Z\d]$")
                         .hasMatch(email);
                     if (!emailValid) {
-                      return provider.language == "en"
-                          ? "Enter Valid User Name"
-                          : "أدخل إسم مستخدم صالح";
+                      "Enter Valid User Name";
                     }
                     return null;
                   },
@@ -183,7 +187,8 @@ class _CreatAccountState extends State<CreatAccount> {
                 SizedBox(height: 0.02.sh),
                 TextFormField(
                   validator: (password) {
-                    if (passwordConfirmController.text != passwordController.text) {
+                    if (passwordConfirmController.text !=
+                        passwordController.text) {
                       return "Password doesn't match.";
                     }
                     return null;
@@ -232,8 +237,7 @@ class _CreatAccountState extends State<CreatAccount> {
                       FirebaseFunctions.creatAccount(
                           emailController.text,
                           userNameController.text,
-                          passwordController.text,
-                              (value) {
+                          passwordController.text, (value) {
                         provider.initUser();
                         Navigator.pushReplacementNamed(
                             context, HomeScreen.routeName);
@@ -247,7 +251,11 @@ class _CreatAccountState extends State<CreatAccount> {
                           color: const Color(0xff2C64C6)),
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
-                        child: Center(child: Text("Sign Up")),
+                        child: Center(
+                            child: Text(
+                          "Sign Up",
+                          style: TextStyle(color: Colors.white),
+                        )),
                       )),
                 ),
               ]),
