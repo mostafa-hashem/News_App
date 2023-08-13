@@ -4,7 +4,6 @@ import 'package:news_app/models/NewsResponse.dart';
 import 'package:news_app/models/ctegory_model.dart';
 import 'package:news_app/models/user_model.dart';
 import 'package:news_app/shared/network/firebase/firebase_functions.dart';
-import 'package:news_app/shared/network/remot/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyAppProvider extends ChangeNotifier {
@@ -12,7 +11,7 @@ class MyAppProvider extends ChangeNotifier {
   String language = 'en';
   int selectedIndex = 0;
   CategoryModel? categoryModel = null;
-  bool searchClicked = false;
+
   List<Articles> newsData = [];
   bool obscureTextLogin = true;
   bool obscureTextCreat = true;
@@ -67,6 +66,8 @@ class MyAppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  bool searchClicked = false;
   void onSearchClickedFalse() {
     searchClicked = true;
     notifyListeners();
@@ -85,14 +86,6 @@ class MyAppProvider extends ChangeNotifier {
   void obscureTextCheckCreat() {
     obscureTextCreat = !obscureTextCreat;
     notifyListeners();
-  }
-
-  Future<void> getNewsData(String sourceID, String query) async {
-    try {
-      NewsResponse newsResponse = await ApiManager.getNewsData(sourceID, query);
-      newsData = newsResponse.articles!;
-      notifyListeners();
-    } catch (e) {}
   }
 
   UserModel? myUser;

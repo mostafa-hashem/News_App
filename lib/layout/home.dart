@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../provider/app_provider.dart';
 import '../screens/widgets/drawer.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:news_app/screens/news_screen.dart';
+import 'package:news_app/screens/home/news_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = "HomeScreen";
@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
   void onSearchSubmitted(String query, MyAppProvider provider) {
     provider.onSearchClickedTrue();
     if (provider.categoryModel != null) {
-      provider.getNewsData(provider.categoryModel!.id, query);
+     // provider.getNewsData(sourceID:provider.categoryModel!.id, query:query);
     }
   }
 }

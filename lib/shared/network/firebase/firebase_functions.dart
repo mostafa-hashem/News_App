@@ -24,8 +24,8 @@ class FirebaseFunctions {
     return userSnap.data();
   }
 
-  static void creatAccount(
-      String email, String name, String password, Function created) async {
+  static void creatAccount(String email, String name, String password,
+      Function created, Function isVerified) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -35,16 +35,17 @@ class FirebaseFunctions {
       await credential.user!.sendEmailVerification();
       bool isEmailVerified = credential.user!.emailVerified;
 
+      UserModel userModel = UserModel(
+        id: credential.user!.uid,
+        name: name,
+        email: email,
+      );
+      await addUserToFirestore(userModel);
       if (isEmailVerified) {
-        UserModel userModel = UserModel(
-          id: credential.user!.uid,
-          name: name,
-          email: email,
-        );
-        await addUserToFirestore(userModel);
+
         created();
       } else {
-        print('Please verify your email address.');
+        isVerified();
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

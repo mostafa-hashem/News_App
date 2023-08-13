@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_app/provider/app_provider.dart';
+import 'package:news_app/shared/network/remot/api_manager.dart';
 import 'package:news_app/shared/styles/app_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,7 @@ class SearchWidget extends StatelessWidget {
               color: Colors.black,
             ),
             onSubmitted: (value) {
-
+                 // provider.getNewsData( query:value);
             },
           ),
         ),

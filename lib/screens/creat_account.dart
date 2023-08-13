@@ -1,7 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/layout/home.dart';
+import 'package:news_app/screens/login_screen.dart';
 import 'package:news_app/shared/network/firebase/firebase_functions.dart';
 import 'package:news_app/shared/styles/app_colors.dart';
 import 'package:provider/provider.dart';
@@ -237,10 +239,28 @@ class _CreatAccountState extends State<CreatAccount> {
                       FirebaseFunctions.creatAccount(
                           emailController.text,
                           userNameController.text,
-                          passwordController.text, (value) {
+                          passwordController.text, () {
                         provider.initUser();
                         Navigator.pushReplacementNamed(
                             context, HomeScreen.routeName);
+                      }, (){
+                        AwesomeDialog(
+                          dismissOnTouchOutside: false,
+                          context: context,
+                          animType: AnimType.SCALE,
+                          dialogType: DialogType.WARNING,
+                          title: 'Email Verification',
+                          titleTextStyle: GoogleFonts.novaSquare(
+                              color: Colors.red, fontSize: 22),
+                          desc:
+                          'Please verify your email address.',
+                          descTextStyle: GoogleFonts.novaSquare(
+                              color: provider.themeMode == ThemeMode.dark ? Colors.white : Colors.black, fontSize: 15),
+                          btnOkOnPress: () {
+                            Navigator.pushReplacementNamed(
+                                context, LoginScreen.routName);
+                          },
+                        ).show();
                       });
                     }
                   },

@@ -6,24 +6,6 @@ import '../../../models/SoursesResponse.dart';
 import '../../components/constans.dart';
 
 class ApiManager {
-  static Future<SoursesResponse> getSources(String id) async {
-    Uri URL = Uri.https(BASE_URL, END_POINT, {"apiKey": ApiKey, "category" : id});
-    Response response = await http.get(URL);
-    var jsonResponse = jsonDecode(response.body);
-    SoursesResponse soursesResponse = SoursesResponse.fromJson(jsonResponse);
-    return soursesResponse;
-  }
 
-  static Future<NewsResponse> getNewsData(String sourceID, String query) async {
-    Uri URL = Uri.https(BASE_URL, "/v2/everything", {
-      "apiKey": ApiKey,
-      "sources": sourceID,
-      "q": query,
-    });
 
-    Response response = await http.get(URL);
-    var jsonResponse = jsonDecode(response.body);
-    NewsResponse newsResponse = NewsResponse.fromJson(jsonResponse);
-    return newsResponse;
-  }
 }

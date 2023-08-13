@@ -197,7 +197,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             desc:
                                 'This email may not have been registered before, do you want to create a new account ?',
                             descTextStyle: GoogleFonts.novaSquare(
-                                color: Colors.white, fontSize: 15),
+                                color: provider.themeMode == ThemeMode.dark
+                                    ? Colors.white
+                                    : Colors.black,
+                                fontSize: 15),
                             btnOkOnPress: () {
                               Navigator.pushReplacementNamed(
                                   context, CreatAccount.routName);
