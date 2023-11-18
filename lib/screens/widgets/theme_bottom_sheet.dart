@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../provider/app_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/provider/app_provider.dart';
+import 'package:provider/provider.dart';
 
 class ThemeBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<MyAppProvider>(context);
+    final provider = Provider.of<MyAppProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(15),
       child: SizedBox(
@@ -21,20 +21,18 @@ class ThemeBottomSheet extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  provider.language == "en"
-                      ? Text(
+                  if (provider.language == "en") Text(
                           AppLocalizations.of(context)!.darkMood,
                           style: GoogleFonts.novaSquare(),
-                        )
-                      : Text(AppLocalizations.of(context)!.darkMood,
-                          style: GoogleFonts.cairo()),
+                        ) else Text(AppLocalizations.of(context)!.darkMood,
+                          style: GoogleFonts.cairo(),),
                   const Spacer(),
                   Icon(
                     provider.themeMode == ThemeMode.dark
                         ? Icons.check_circle_outline
                         : Icons.circle_outlined,
                     size: 35,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -48,20 +46,18 @@ class ThemeBottomSheet extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  provider.language == "en"
-                      ? Text(
+                  if (provider.language == "en") Text(
                           AppLocalizations.of(context)!.lightMood,
                           style: GoogleFonts.novaSquare(),
-                        )
-                      : Text(AppLocalizations.of(context)!.lightMood,
-                          style: GoogleFonts.cairo()),
+                        ) else Text(AppLocalizations.of(context)!.lightMood,
+                          style: GoogleFonts.cairo(),),
                   const Spacer(),
                   Icon(
                     provider.themeMode == ThemeMode.light
                         ? Icons.check_circle_outline
                         : Icons.circle_outlined,
                     size: 35,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -75,30 +71,28 @@ class ThemeBottomSheet extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  provider.language == "en"
-                      ? Text(
+                  if (provider.language == "en") Text(
                           AppLocalizations.of(context)!.systemMood,
                           style: GoogleFonts.novaSquare(),
-                        )
-                      : Text(AppLocalizations.of(context)!.systemMood,
-                          style: GoogleFonts.cairo()),
+                        ) else Text(AppLocalizations.of(context)!.systemMood,
+                          style: GoogleFonts.cairo(),),
                   const Spacer(),
                   Icon(
                     provider.themeMode == ThemeMode.system
                         ? Icons.check_circle_outline
                         : Icons.circle_outlined,
                     size: 35,
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget getSelectedItemWidget(String text, context) {
+  Widget getSelectedItemWidget(String text,BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -107,17 +101,17 @@ class ThemeBottomSheet extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
               color: Brightness.light == Theme.of(context).brightness
                   ? Theme.of(context).primaryColor
-                  : Theme.of(context).primaryColorDark),
+                  : Theme.of(context).primaryColorDark,),
         ),
         Icon(Icons.check,
             color: Brightness.light == Theme.of(context).brightness
                 ? Theme.of(context).primaryColor
-                : Theme.of(context).primaryColorDark),
+                : Theme.of(context).primaryColorDark,),
       ],
     );
   }
 
-  Widget getUnSelectedItemWidget(String text, context) {
+  Widget getUnSelectedItemWidget(String text,BuildContext context) {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleMedium,

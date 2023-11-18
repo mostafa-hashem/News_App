@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/models/NewsResponse.dart';
+import 'package:intl/intl.dart';
+import 'package:news_app/features/news/data/models/NewsResponse.dart';
 import 'package:news_app/provider/app_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class FullNewScreen extends StatefulWidget {
-  static const String routeName = "FullNewScreen";
-
+class FullNew extends StatefulWidget {
+const FullNew();
   @override
-  State<FullNewScreen> createState() => _FullNewScreenState();
+  State<FullNew> createState() => _FullNewState();
 }
 
-class _FullNewScreenState extends State<FullNewScreen> {
+class _FullNewState extends State<FullNew> {
   late Uri url;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    var article = ModalRoute.of(context)?.settings.arguments as Articles;
+    final article = ModalRoute.of(context)!.settings.arguments! as Articles;
     url = Uri.parse(article.url ?? "");
   }
 
   @override
   Widget build(BuildContext context) {
-    var article = ModalRoute.of(context)?.settings.arguments as Articles;
-    var provider = Provider.of<MyAppProvider>(context);
-    var publishedAt = DateTime.parse(article.publishedAt!);
-    var timeDifference = DateTime.now().difference(publishedAt);
-    var formattedDuration = formatDuration(timeDifference);
+    final article = ModalRoute.of(context)!.settings.arguments! as Articles;
+    final provider = Provider.of<MyAppProvider>(context);
+    final publishedAt = DateTime.parse(article.publishedAt!);
+    final timeDifference = DateTime.now().difference(publishedAt);
+    final formattedDuration = formatDuration(timeDifference);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +46,7 @@ class _FullNewScreenState extends State<FullNewScreen> {
               ClipRRect(
                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(22),
-                    topLeft: Radius.circular(22)),
+                    topLeft: Radius.circular(22),),
                 child: Image.network(article.urlToImage ?? ""),
               ),
               SizedBox(
@@ -84,7 +83,7 @@ class _FullNewScreenState extends State<FullNewScreen> {
                               .copyWith(
                                   color: provider.themeMode == ThemeMode.light
                                       ? Colors.black45
-                                      : Colors.white70)),
+                                      : Colors.white70,),),
                     ],
                   ),
                 ],
@@ -127,12 +126,12 @@ class _FullNewScreenState extends State<FullNewScreen> {
                               ? Colors.black
                               : Colors.white,
                           fontSize: 15,
-                          decoration: TextDecoration.underline),
+                          decoration: TextDecoration.underline,),
                     ),
                     const Icon(
                       Icons.arrow_right_outlined,
                       size: 24,
-                    )
+                    ),
                   ],
                 ),
               ),

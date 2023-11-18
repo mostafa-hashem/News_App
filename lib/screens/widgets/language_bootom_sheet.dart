@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../provider/app_provider.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/provider/app_provider.dart';
+import 'package:provider/provider.dart';
 
 class LanguageBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<MyAppProvider>(context);
+    final provider = Provider.of<MyAppProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(15),
       child: SizedBox(
@@ -23,7 +23,9 @@ class LanguageBottomSheet extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.arabic,
-                    style: provider.language == "en" ? GoogleFonts.novaSquare() : GoogleFonts.cairo(),
+                    style: provider.language == "en"
+                        ? GoogleFonts.novaSquare()
+                        : GoogleFonts.cairo(),
                   ),
                   const Spacer(),
                   Icon(
@@ -31,7 +33,7 @@ class LanguageBottomSheet extends StatelessWidget {
                         ? Icons.check_circle_outline
                         : Icons.circle_outlined,
                     size: 35,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -47,7 +49,9 @@ class LanguageBottomSheet extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.english,
-                    style: provider.language == "en" ? GoogleFonts.novaSquare() : GoogleFonts.cairo()
+                    style: provider.language == "en"
+                        ? GoogleFonts.novaSquare()
+                        : GoogleFonts.cairo(),
                   ),
                   const Spacer(),
                   Icon(
@@ -55,17 +59,17 @@ class LanguageBottomSheet extends StatelessWidget {
                         ? Icons.check_circle_outline
                         : Icons.circle_outlined,
                     size: 35,
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget getUnSelectedItemWidget(String text, context) {
+  Widget getUnSelectedItemWidget(String text, BuildContext context) {
     return Text(
       text,
       style: Theme.of(context).textTheme.titleMedium,

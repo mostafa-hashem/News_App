@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/models/ctegory_model.dart';
+import 'package:news_app/features/news/data/models/ctegory_model.dart';
 
 class CategoryItem extends StatelessWidget {
-  CategoryModel categoryModel;
-  int index;
+  final CategoryModel categoryModel;
+  final int index;
 
-  CategoryItem(this.categoryModel, this.index);
+  const CategoryItem(this.categoryModel, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CategoryItem extends StatelessWidget {
               topRight: const Radius.circular(30),
               topLeft: const Radius.circular(30),
               bottomRight: index.isOdd ? const Radius.circular(30) : Radius.zero,
-              bottomLeft: index.isEven ? const Radius.circular(30) : Radius.zero)),
+              bottomLeft: index.isEven ? const Radius.circular(30) : Radius.zero,),),
       child: Column(
         children: [
           Image.asset(
@@ -30,7 +30,7 @@ class CategoryItem extends StatelessWidget {
                 style: const TextStyle(fontSize: 18),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

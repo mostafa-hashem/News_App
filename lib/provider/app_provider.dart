@@ -1,22 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/models/NewsResponse.dart';
-import 'package:news_app/models/ctegory_model.dart';
-import 'package:news_app/models/user_model.dart';
-import 'package:news_app/shared/network/firebase/firebase_functions.dart';
+import 'package:news_app/features/news/data/models/NewsResponse.dart';
+import 'package:news_app/features/news/data/models/ctegory_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyAppProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
   String language = 'en';
   int selectedIndex = 0;
-  CategoryModel? categoryModel = null;
+  CategoryModel? categoryModel;
 
   List<Articles> newsData = [];
   bool obscureTextLogin = true;
-  bool obscureTextCreat = true;
+  bool obscureTextCreate = true;
 
-  void changeLanguage(String newLanguage) async {
+  Future<void> changeLanguage(String newLanguage) async {
     if (language == newLanguage) {
       return;
     }
@@ -26,19 +23,20 @@ class MyAppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeTheme(ThemeMode newTheme) async {
+  Future<void> changeTheme(ThemeMode newTheme) async {
     if (themeMode == newTheme) {
       return;
     }
     themeMode = newTheme;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(
-        'theme',
-        newTheme == ThemeMode.dark
-            ? 'dark'
-            : newTheme == ThemeMode.system
-                ? 'system'
-                : 'light');
+      'theme',
+      newTheme == ThemeMode.dark
+          ? 'dark'
+          : newTheme == ThemeMode.system
+              ? 'system'
+              : 'light',
+    );
     notifyListeners();
   }
 
@@ -58,7 +56,7 @@ class MyAppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onCategorySelected(category) {
+  void onCategorySelected(CategoryModel category) {
     if (categoryModel == category) {
       return;
     }
@@ -66,8 +64,8 @@ class MyAppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   bool searchClicked = false;
+
   void onSearchClickedFalse() {
     searchClicked = true;
     notifyListeners();
@@ -77,35 +75,35 @@ class MyAppProvider extends ChangeNotifier {
     searchClicked = false;
     notifyListeners();
   }
+  //
+  // void obscureTextCheckLogin() {
+  //   obscureTextLogin = !obscureTextLogin;
+  //   notifyListeners();
+  // }
+  //
+  // void obscureTextCheckCreat() {
+  //   obscureTextCreate = !obscureTextCreate;
+  //   notifyListeners();
+  // }
 
-  void obscureTextCheckLogin() {
-    obscureTextLogin = !obscureTextLogin;
-    notifyListeners();
-  }
+  // UserModel? myUser;
+  // User? firebaseUser;
+  //
+  // MyAppProvider() {
+  //   firebaseUser = FirebaseAuth.instance.currentUser;
+  //   if (firebaseUser != null) {
+  //     initUser();
+  //   }
+  //   notifyListeners();
+  // }
 
-  void obscureTextCheckCreat() {
-    obscureTextCreat = !obscureTextCreat;
-    notifyListeners();
-  }
+  // Future<void> initUser() async {
+  //   firebaseUser = FirebaseAuth.instance.currentUser;
+  //   myUser = await FirebaseFunctions.readUser(firebaseUser!.uid);
+  // }
 
-  UserModel? myUser;
-  User? firebaseUser;
-
-  MyAppProvider() {
-    firebaseUser = FirebaseAuth.instance.currentUser;
-    if (firebaseUser != null) {
-      initUser();
-    }
-    notifyListeners();
-  }
-
-  void initUser() async {
-    firebaseUser = FirebaseAuth.instance.currentUser;
-    myUser = await FirebaseFunctions.readUser(firebaseUser!.uid);
-  }
-
-  void logout(){
-    FirebaseAuth.instance.signOut();
-    notifyListeners();
-  }
+  // void logout() {
+  //   FirebaseAuth.instance.signOut();
+  //   notifyListeners();
+  // }
 }
